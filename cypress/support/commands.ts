@@ -200,7 +200,7 @@ Cypress.Commands.add("switchUserByXstate", (username) => {
       cy.getBySel("sidenav-username").contains(username);
     }
     cy.getBySel("list-skeleton").should("not.exist");
-    cy.getBySelLike("transaction-item").should("have.length.greaterThan", 1);
+    // cy.getBySelLike("transaction-item").should("have.length.greaterThan", 1);
   });
 });
 

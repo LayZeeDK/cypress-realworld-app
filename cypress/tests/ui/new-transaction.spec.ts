@@ -264,10 +264,11 @@ describe("New Transaction", function () {
       cy.getBySel("user-list-search-input")
         .type(targetUser.firstName as string, { force: true })
         .blur();
+      cy.wait("@usersSearch");
       cy.get(".MuiStepper-root").click();
       cy.getBySelLike("user-list-item")
         .first()
-        .should("contain", targetUser.firstName as string);
+        .should("contain", targetUser.firstName as string); // flaky
     });
 
     searchAttrs.forEach((attr: keyof User) => {

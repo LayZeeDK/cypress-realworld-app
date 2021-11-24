@@ -17,6 +17,7 @@ describe("Notifications", function () {
     cy.intercept("POST", "/transactions").as("createTransaction");
     cy.intercept("PATCH", "/notifications/*").as("updateNotification");
     cy.intercept("POST", "/comments/*").as("postComment");
+    cy.intercept("POST", "/likes/*").as("postLike");
 
     cy.database("filter", "users").then((users: User[]) => {
       ctx.userA = users[0];
@@ -48,6 +49,7 @@ describe("Notifications", function () {
       const likesCountSelector = "[data-test*=transaction-like-count]";
       cy.contains(likesCountSelector, 0);
       cy.getBySelLike("like-button").click();
+      cy.wait("@postLike");
       // a successful "like" should disable the button and increment
       // the number of likes
       cy.getBySelLike("like-button").should("be.disabled");
